@@ -95,8 +95,8 @@ sorted_occurances = sorted(WORD_OCCURANCES.iteritems(), key=operator.itemgetter(
 
 # More than halfway there ;) 
 # Now, lets show the user a numbered list of word occurances so that the user can create his own filename
-for index, value in enumerate(sorted_occurances[:10]):
-	if value > 5:
+for index, value in enumerate(sorted_occurances):
+	if value[1] > 5:
 		print '%s - %s' % (index, value)
 
 new_name_format = get_name_input()
