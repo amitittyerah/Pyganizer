@@ -5,14 +5,16 @@ import re
 import operator
 
 from episode import Episode
-from forms import VIDEO_EXTS
+from formats import VIDEO_EXTS
+
 WORD_OCCURANCES = {}
 EPISODES = {}
 SEASONED_FLAG = False
 
-
 class Rename:
-
+	'''
+		Base class
+	'''
 	@staticmethod
 	def get_name_input(sorted_occurances):
 		'''
