@@ -1,3 +1,5 @@
+LAST_NUM = 0
+
 class Episode:
 	'''
 		Episode object

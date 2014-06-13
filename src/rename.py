@@ -5,9 +5,10 @@ import re
 import operator
 
 from episode import Episode
-from formats import VIDEO_EXTS
-from global_vars import WORD_OCCURANCES, LAST_NUM, EPISODES
 
+WORD_OCCURANCES = {}
+EPISODES = {}
+SEASONED_FLAG = False
 
 
 class Rename:
