@@ -5,7 +5,7 @@ import re
 import operator
 
 from episode import Episode
-
+from forms import VIDEO_EXTS
 WORD_OCCURANCES = {}
 EPISODES = {}
 SEASONED_FLAG = False
