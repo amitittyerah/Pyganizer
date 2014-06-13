@@ -10,6 +10,9 @@ LAST_NUM = 0
 EPISODES = {}
 
 class Episode:
+	'''
+		Episode object
+	'''
 	def __init__(self, parts, ext):
 		self.parts = parts
 		self.ext = ext
@@ -36,11 +39,12 @@ class Episode:
 					min_diff = diff
 					suspect = ep_suspect
 			self.episode_number = int(suspect)
-		#if self.episode_number == 0:
-		#	print '<------------------------------\n\n'
 		LAST_NUM = self.episode_number
 
 def get_name_input():
+	'''
+		Grab the new file name format from the user
+	'''
 	WAITING = False
 	while not WAITING:
 		new_name_maker = raw_input("Enter the new name : ")
@@ -51,23 +55,30 @@ def get_name_input():
 	return new_name
 
 def clean(file_name):
+	'''
+		Clean up the file name. Remove multiple spaces
+	'''
 	return re.sub(r'\([^)]*\)', '', file_name)
 
 def breakdown(file_name):
+	'''
+		Breakdown the file name and filter out non-video ones
+	'''
 	global WORD_OCCURANCES
 	file_name_parts = file_name.split('.')
 	file_name_renamed = ''.join(file_name_parts[:-1])
 	file_ext = file_name_parts[-1]
 	
+	# Only if they are video files
 	if file_ext not in VIDEO_EXTS:
 		return False
 
+	# Clean up the file name
 	file_name_renamed = clean(file_name_renamed)
 
 	pattern = re.compile(r"[_]")
 	file_name_arr = pattern.split('_'.join(file_name_renamed.split()))
-	#print "FILENAME ARRA: "
-	#print file_name_arr
+
 	for part in file_name_arr:
 		if part in WORD_OCCURANCES:
 			WORD_OCCURANCES[part] += 1
@@ -87,9 +98,9 @@ print "Info > There are %s files in this directory " % (num_files_in_directory)
 
 # We are interested in getting the name of the series and the episode
 for file in files_in_directory:
-	#print file
 	file_parts = breakdown(file)
 
+# Sort the work occurances
 sorted_occurances = sorted(WORD_OCCURANCES.iteritems(), key=operator.itemgetter(1), reverse=True)
 
 
@@ -99,9 +110,11 @@ for index, value in enumerate(sorted_occurances):
 	if value[1] > 5:
 		print '%s - %s' % (index, value)
 
+# Get the new name format
 new_name_format = get_name_input()
 print "\n\n\nNew name received as %s\n\n" % (new_name_format)
 
+# Iterate through the new episode names and rename them
 for fname, episode in EPISODES.iteritems():
 	new_name = episode.get_file_name(new_name_format)
 	print '%s ----> %s\n' % (fname, new_name)
