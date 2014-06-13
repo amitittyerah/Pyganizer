@@ -9,6 +9,7 @@ from formats import VIDEO_EXTS
 from global_vars import WORD_OCCURANCES, LAST_NUM, EPISODES
 
 
+
 class Rename:
 
 	@staticmethod
@@ -58,10 +59,11 @@ class Rename:
 		file_name_arr = pattern.split('_'.join(file_name_renamed.split()))
 
 		# Iterate through the parts of the file and try to see if it matches the SXEX pattern where X is an integer
-		regex = re.compile("S\d+E\d+")
+		regex = re.compile("S\d+E\d+", re.IGNORECASE)
 		for index, file_part in enumerate(file_name_arr):
 			if regex.search(file_part):
-				file_part = file_part.replace('S', '').replace('E', '')
+				SEASONED_FLAG = True
+				file_part = file_part.lower().replace('s', '').replace('e', '').replace('+', '')
 				file_name_arr[index] = file_part
 
 		# Increment word occurances
